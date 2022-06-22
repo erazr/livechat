@@ -5,6 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js"></script>
   <title>Ninja Chat</title>
 </head>
 <body>
@@ -50,7 +52,18 @@
       <div class="update-mssg"></div>
     </form>
   </div>
-  
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-D_PEfWk8U6zdcI76NQdayiMqD3r4GTQ",
+      authDomain: "chat-ab831.firebaseapp.com",
+      projectId: "chat-ab831",
+      storageBucket: "chat-ab831.appspot.com",
+      messagingSenderId: "1091051509296",
+      appId: "1:1091051509296:web:1b5f500acd7bc019073ff5"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
   <script src="scripts/chat.js"></script>
   <script src="scripts/ui.js"></script>
   <script src="scripts/app.js"></script>
