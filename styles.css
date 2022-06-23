@@ -1,3 +1,9 @@
+.container-fluid{
+  max-width: 70%;
+}
+
+.dropdown-toggle::after { border: none; }
+
 .container{
   max-width: 600px;
 }
