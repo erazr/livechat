@@ -1,5 +1,4 @@
-Live chat 
-Stack: HTML/Bootstrap/JS
-Backend is on js configured with firebase
-Firestore for database
-Firebase basic authentication 
+# Live chat 
+Live chat with channels on mainly JS with Firestore Database and basic email-pass auth
+## Configure
+You can change firebase config script connected at the very end in index.html 
