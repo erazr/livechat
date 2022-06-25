@@ -19,11 +19,10 @@ class ChatUI{
                 </li>
             `;
             this.list.innerHTML += html;
-            document.querySelector('.alert').innerText = '';
+            document.querySelector('.alert').style.display = 'none';
         }
         else{
             this.list.innerHTML = '';
-            document.querySelector('.alert').innerText = 'Sign-up or Log-in to continue';
         }
     }
 }

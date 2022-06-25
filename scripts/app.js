@@ -8,21 +8,25 @@ const loginForm = document.querySelector('#login-form');
 const regModal = new bootstrap.Modal(document.getElementById('reg-modal'));
 const loginModal = new bootstrap.Modal(document.getElementById('login-modal'));
 
+const newAuth = new Auth();
+
 signUpForm.addEventListener('submit', e => {
     e.preventDefault();
-    const username = signUpForm['username'].value;
-    const email = signUpForm['signup-email'].value;
-    const pass = signUpForm['signup-pass'].value;
-    const newAuth = new Auth(username, email, pass);
-    newAuth.authenticate(regModal, signUpForm);
-})
+    newAuth.form = signUpForm;
+    newAuth.modal = regModal;
+    newAuth.authenticate();
+});
 
 loginForm.addEventListener('submit', e => {
     e.preventDefault();
-    const email = loginForm['login-email'].value;
-    const pass = loginForm['login-pass'].value;
-    const newAuth = new Auth(username, email, pass);
-    newAuth.authenticate(loginModal, loginForm);
+    newAuth.form = loginForm;
+    newAuth.modal = loginModal;
+    newAuth.authenticate();
+});
+
+const logout = document.querySelector('#logout');
+logout.addEventListener('click', () => {
+    auth.signOut();    
 })
 
 // add a new chat
@@ -47,16 +51,6 @@ chatRooms.addEventListener('click', e => {
 const chatUI = new ChatUI(chatlist);
 const chatroom = new Chatroom('general');
 
-auth.onAuthStateChanged((user) => {
-    if(user){
-        document.querySelector('#accinfo').style.display = 'block';
-        document.querySelector('#login').style.display = 'none';
-        chatroom.getChats(data => chatUI.render(data));
-    }
-    else{
-        document.querySelector('#accinfo').style.display = 'none';
-        document.querySelector('#login').style.display = 'block';
-        document.querySelector('#signup').style.display = 'block';
-        chatUI.render('');
-    }
-})
+auth.onAuthStateChanged(user => {
+    newAuth.changeUI(user);
+});
