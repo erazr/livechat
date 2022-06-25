@@ -1,31 +1,31 @@
 class Chatroom {
-    constructor(room, username){
+    constructor(room){
         this.room = room;
-        this.username = username;
-        this.chats = db.collection('chats');
+        this.chats = db.collection('chats').doc('messages');
         this.unsub;
     }
     async addChat(message){
         // chat obj
         const now = new Date();
         const chat = {
-            message,
-            username: this.username,
+            created_at: firebase.firestore.Timestamp.fromDate(now),
             room: this.room,
-            created_at: firebase.firestore.Timestamp.fromDate(now)
+            message,
+            username: auth.currentUser.displayName,
         };
         // save and return chat document
-        const response = await this.chats.add(chat);
+        const response = await this.chats.collection('messages').add(chat);
         return response;
     }
     getChats(callback){
-        this.unsub = this.chats.where('room', '==', this.room).orderBy('created_at').onSnapshot(snap => {
+        this.unsub = this.chats.collection('messages').where('room', '==', this.room).onSnapshot(snap => {
             snap.docChanges().forEach(change => {
                 if(change.type === 'added'){
                     callback(change.doc.data());
+                    console.log(change.doc.data());
                 }
             });
-        });
+        });      
     }
     updateRoom(room){
         this.room = room;
