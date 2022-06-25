@@ -24,3 +24,6 @@
 .time{
   font-size: 0.7em;
 }
+.alert{
+  margin: 0 !important;
+}
