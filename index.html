@@ -19,7 +19,8 @@
         <a href="#" class="text-decoration-none text-dark">Live Chatroom</a>
       </div>
       <a href="#" id="accinfo" class="text-decoration-none text-dark me-4" style="display: none" data-bs-toggle="modal" data-bs-target="#accinfo-modal"><i class="fa-solid fa-user"></i></a>
-      <a href="#" id="login" class="text-decoration-none text-dark me-4" style="display: none" data-bs-toggle="modal" data-bs-target="#login-modal">Login</a>
+      <a href="#" id="logout" class="text-decoration-none text-dark me-4" style="display: none">Log out</a>
+      <a href="#" id="login" class="text-decoration-none text-dark me-4" style="display: none" data-bs-toggle="modal" data-bs-target="#login-modal">Log in</a>
       <a href="#" id="signup" class="text-decoration-none text-dark" style="display: none" data-bs-toggle="modal" data-bs-target="#reg-modal">Sign up</a>    
     </div>
   </nav>
@@ -36,7 +37,7 @@
     </div>
     <!-- chat list / window -->
     <div class="chat-window">
-      <div class="alert container text-center"></div>
+      <div class="alert text-center"></div>
       <ul class="chat-list list-group"></ul>
     </div>
     <!-- new chat form -->
@@ -63,16 +64,16 @@
         <div class="modal-body">
           <form id="signup-form">
             <div class="form-floating mb-3">
-              <input class="form-control" id="username" type="text" placeholder="example@mail.com" required>
-              <label for="username">Your name:</label>
+              <input class="form-control" id="userName" type="text" placeholder="example" required>
+              <label for="userName">Your name:</label>
             </div>
             <div class="form-floating mb-3">
-              <input class="form-control" id="signup-email" type="email" placeholder="example@mail.com" required>
-              <label for="signup-email">Email adress:</label>
+              <input class="form-control" id="userEmail" type="email" placeholder="example@mail.com" required>
+              <label for="userEmail">Email adress:</label>
             </div>
             <div class="form-floating mb-3">
-              <input class="form-control" id="signup-pass" type="password" placeholder="1234" required>
-              <label for="signup-pass">Password:</label>
+              <input class="form-control" id="userPass" type="password" placeholder="1234" required>
+              <label for="userPass">Password:</label>
             </div>
             <button type="submit" class="btn btn-primary">Sign-up</button>
           </form>
@@ -91,12 +92,12 @@
         <div class="modal-body">
           <form id="login-form">
             <div class="form-floating mb-3">
-              <input class="form-control" id="login-email" type="email" placeholder="example@mail.com" required>
-              <label for="login-email">Email adress:</label>
+              <input class="form-control" id="loginUserEmail" type="email" placeholder="example@mail.com" required>
+              <label for="loginUserEmail">Email adress:</label>
             </div>
             <div class="form-floating mb-3">
-              <input class="form-control" type="password" id="login-pass" placeholder="1234" required>
-              <label for="login-pass">Password:</label>
+              <input class="form-control" id="loginUserPass" type="password" placeholder="1234" required>
+              <label for="loginUserPass">Password:</label>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
           </form>
@@ -112,9 +113,9 @@
           <span class="modal-title">Account info</span>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
         </div>
-        <div class="modal-body">
-          
+        <div class="acc-info modal-body">
         </div>
+
       </div>
     </div>
   </div>
