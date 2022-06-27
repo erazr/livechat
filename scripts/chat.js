@@ -18,11 +18,10 @@ class Chatroom {
         return response;
     }
     getChats(callback){
-        this.unsub = this.chats.collection('messages').where('room', '==', this.room).onSnapshot(snap => {
+        this.unsub = this.chats.collection('messages').where('room', '==', this.room).orderBy('created_at').onSnapshot(snap => {
             snap.docChanges().forEach(change => {
                 if(change.type === 'added'){
                     callback(change.doc.data());
-                    console.log(change.doc.data());
                 }
             });
         });      

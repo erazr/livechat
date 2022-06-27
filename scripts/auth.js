@@ -1,7 +1,7 @@
 class Auth{
-    constructor(modal, form){
-        this.modal = modal;
-        this.form = form;
+    constructor(){
+        this.modal;
+        this.form;
     }
 
     changeUI(user){
@@ -17,7 +17,6 @@ class Auth{
                     <span>Your email ${user.email}</span>
                 </div>
             `;
-            chatroom.getChats(data => chatUI.render(data));
         }
         else{
             document.querySelector('#accinfo').style.display = 'none';
@@ -26,16 +25,19 @@ class Auth{
             document.querySelector('#signup').style.display = 'block';
             document.querySelector('.alert').style.display = 'block'
             document.querySelector('.alert').innerText = 'Sign-up or Log-in to continue';
-            chatUI.render('');
+            chatUI.render('')
         }
     }
 
     authenticate(){
         if(this.form === document.querySelector('#login-form')){
-            auth.signInWithEmailAndPassword(this.form['loginUserEmail'].value, this.form['loginUserPass'].value).then(() => {
-                this.modal.hide();
-                this.form.reset();
-            });
+            auth.signInWithEmailAndPassword(this.form['loginUserEmail'].value, this.form['loginUserPass'].value)
+                .then(() => {
+                    this.modal.hide();
+                    this.form.reset();
+                    this.changeUI(auth.currentUser);
+                    chatroom.getChats(data => chatUI.render(data));
+                });
         }
         else if(this.form === document.querySelector('#signup-form')){
             auth.createUserWithEmailAndPassword(this.form['userEmail'].value, this.form['userPass'].value).then((creds) => {
@@ -46,6 +48,7 @@ class Auth{
                     this.modal.hide();
                     this.form.reset();
                     this.changeUI(auth.currentUser);
+                    chatroom.getChats(data => chatUI.render(data));
             });  
         }
     }

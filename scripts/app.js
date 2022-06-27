@@ -42,14 +42,16 @@ chatForm.addEventListener('submit', e => {
 chatRooms.addEventListener('click', e => {
     if(e.target.tagName === 'BUTTON'){
         chatUI.clear();
+        e.target.classList.add('btn-primary');
         chatroom.updateRoom(e.target.getAttribute('id'));
-        chatroom.getChats(chat => chatUI.render(chat))
+        chatroom.getChats(chat => chatUI.render(chat));
     }
 })
 
 // class instances
 const chatUI = new ChatUI(chatlist);
 const chatroom = new Chatroom('general');
+chatroom.getChats(data => chatUI.render(data));
 
 auth.onAuthStateChanged(user => {
     newAuth.changeUI(user);

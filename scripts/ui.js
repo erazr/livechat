@@ -22,7 +22,7 @@ class ChatUI{
             document.querySelector('.alert').style.display = 'none';
         }
         else{
-            this.list.innerHTML = '';
+            this.list.innerHTML = ``;
         }
     }
 }
