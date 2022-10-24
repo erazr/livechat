@@ -1,141 +1,267 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-firestore.js"></script>
-  <title>Live Chat</title>
-</head>
-<body>
-  <nav class="navbar bg-light">
-    <div class="container d-flex">
-      <div class="navbar-brand flex-grow-1">
-        <a href="#" class="text-decoration-none text-dark">Live Chatroom</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="ie=edge" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="styles.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-firestore.js"></script>
+    <title>Live Chat</title>
+  </head>
+  <body>
+    <nav class="navbar bg-light">
+      <div class="container d-flex">
+        <div class="navbar-brand flex-grow-1">
+          <a
+            href="#"
+            class="text-decoration-none text-dark"
+            >Live Chatroom</a
+          >
+        </div>
+        <a
+          href="#"
+          id="accinfo"
+          class="text-decoration-none text-dark me-4"
+          style="display: none"
+          data-bs-toggle="modal"
+          data-bs-target="#accinfo-modal"
+          ><i class="fa-solid fa-user"></i
+        ></a>
+        <a
+          href="#"
+          id="logout"
+          class="text-decoration-none text-dark me-4"
+          style="display: none"
+          >Log out</a
+        >
+        <a
+          href="#"
+          id="login"
+          class="text-decoration-none text-dark me-4"
+          style="display: none"
+          data-bs-toggle="modal"
+          data-bs-target="#login-modal"
+          >Log in</a
+        >
+        <a
+          href="#"
+          id="signup"
+          class="text-decoration-none text-dark"
+          style="display: none"
+          data-bs-toggle="modal"
+          data-bs-target="#reg-modal"
+          >Sign up</a
+        >
       </div>
-      <a href="#" id="accinfo" class="text-decoration-none text-dark me-4" style="display: none" data-bs-toggle="modal" data-bs-target="#accinfo-modal"><i class="fa-solid fa-user"></i></a>
-      <a href="#" id="logout" class="text-decoration-none text-dark me-4" style="display: none">Log out</a>
-      <a href="#" id="login" class="text-decoration-none text-dark me-4" style="display: none" data-bs-toggle="modal" data-bs-target="#login-modal">Log in</a>
-      <a href="#" id="signup" class="text-decoration-none text-dark" style="display: none" data-bs-toggle="modal" data-bs-target="#reg-modal">Sign up</a>    
-    </div>
-  </nav>
-  <!-- container & title -->
-  <div class="container my-4">
-    <h1 class="my-4 text-center">Live Chat</h1>
-    <!-- buttons for chatrooms -->
-    <div class="chat-rooms mb-3 text-center">
-      <div class="my-2">Choose a chatroom:</div>
-      <button class="btn" id="general">#general</button>
-      <button class="btn" id="gaming">#gaming</button>
-      <button class="btn" id="music">#music</button>
-  
-    </div>
-    <!-- chat list / window -->
-    <div class="chat-window">
-      <div class="alert text-center"></div>
-      <ul class="chat-list list-group"></ul>
-    </div>
-    <!-- new chat form -->
-    <form class="new-chat my-3">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="user input-group-text">Your message:</div>
+    </nav>
+    <!-- container & title -->
+    <div class="container my-4">
+      <h1 class="my-4 text-center">Live Chat</h1>
+      <!-- buttons for chatrooms -->
+      <div class="chat-rooms mb-3 text-center">
+        <div class="my-2">Choose a chatroom:</div>
+        <button
+          class="btn"
+          id="general">
+          #general
+        </button>
+        <button
+          class="btn"
+          id="gaming">
+          #gaming
+        </button>
+        <button
+          class="btn"
+          id="music">
+          #music
+        </button>
+      </div>
+      <!-- chat list / window -->
+      <div class="chat-window">
+        <div class="alert text-center"></div>
+        <ul class="chat-list list-group"></ul>
+      </div>
+      <!-- new chat form -->
+      <form class="new-chat my-3">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="user input-group-text">Your message:</div>
+          </div>
+          <input
+            type="text"
+            id="message"
+            class="form-control"
+            required />
+          <div class="input-group-append">
+            <input
+              type="submit"
+              class="btn"
+              value="send" />
+          </div>
         </div>
-        <input type="text" id="message" class="form-control" required>
-        <div class="input-group-append">
-          <input type="submit" class="btn" value="send">
+      </form>
+    </div>
+    <!-- sign-up modal -->
+    <div
+      class="modal fade"
+      id="reg-modal"
+      tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-title">Sign-up</span>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="signup-form">
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="userName"
+                  type="text"
+                  placeholder="example"
+                  required />
+                <label for="userName">Your name:</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="userEmail"
+                  type="email"
+                  placeholder="example@mail.com"
+                  required />
+                <label for="userEmail">Email adress:</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="userPass"
+                  type="password"
+                  placeholder="1234"
+                  required />
+                <label for="userPass">Password:</label>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary">
+                Sign-up
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </form>
-  </div>
-  <!-- sign-up modal -->
-  <div class="modal fade" id="reg-modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="modal-title">Sign-up</span>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="signup-form">
-            <div class="form-floating mb-3">
-              <input class="form-control" id="userName" type="text" placeholder="example" required>
-              <label for="userName">Your name:</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input class="form-control" id="userEmail" type="email" placeholder="example@mail.com" required>
-              <label for="userEmail">Email adress:</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input class="form-control" id="userPass" type="password" placeholder="1234" required>
-              <label for="userPass">Password:</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Sign-up</button>
-          </form>
+    </div>
+    <!-- login modal -->
+    <div
+      class="modal fade"
+      id="login-modal"
+      tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-title">login</span>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="login-form">
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="loginUserEmail"
+                  type="email"
+                  placeholder="example@mail.com"
+                  required />
+                <label for="loginUserEmail">Email adress:</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="loginUserPass"
+                  type="password"
+                  placeholder="1234"
+                  required />
+                <label for="loginUserPass">Password:</label>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary">
+                Login
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- login modal -->
-  <div class="modal fade" id="login-modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="modal-title">login</span>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="login-form">
-            <div class="form-floating mb-3">
-              <input class="form-control" id="loginUserEmail" type="email" placeholder="example@mail.com" required>
-              <label for="loginUserEmail">Email adress:</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input class="form-control" id="loginUserPass" type="password" placeholder="1234" required>
-              <label for="loginUserPass">Password:</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-          </form>
+    <!-- account info modal -->
+    <div
+      class="modal fade"
+      id="accinfo-modal"
+      tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-title">Account info</span>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="close"></button>
+          </div>
+          <div class="acc-info modal-body"></div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- account info modal -->
-  <div class="modal fade" id="accinfo-modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="modal-title">Account info</span>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-        </div>
-        <div class="acc-info modal-body">
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js" integrity="sha512-ZV3aKX6eFgm3To1hmxEyuh4dLtR1ovVeiz0auNstFXOcuwIcC6rBHGUP2lAmdUZb66yBj/mVborw4HhDkbvrhw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyA-D_PEfWk8U6zdcI76NQdayiMqD3r4GTQ",
-      authDomain: "chat-ab831.firebaseapp.com",
-      projectId: "chat-ab831",
-      storageBucket: "chat-ab831.appspot.com",
-      messagingSenderId: "1091051509296",
-      appId: "1:1091051509296:web:1b5f500acd7bc019073ff5"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const auth = firebase.auth();
-  </script>
-  <script src="scripts/auth.js"></script>
-  <script src="scripts/chat.js"></script>
-  <script src="scripts/ui.js"></script>
-  <script src="scripts/app.js"></script>
-</body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js"
+      integrity="sha512-ZV3aKX6eFgm3To1hmxEyuh4dLtR1ovVeiz0auNstFXOcuwIcC6rBHGUP2lAmdUZb66yBj/mVborw4HhDkbvrhw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: 'AIzaSyA-D_PEfWk8U6zdcI76NQdayiMqD3r4GTQ',
+        authDomain: 'chat-ab831.firebaseapp.com',
+        projectId: 'chat-ab831',
+        storageBucket: 'chat-ab831.appspot.com',
+        messagingSenderId: '1091051509296',
+        appId: '1:1091051509296:web:1b5f500acd7bc019073ff5',
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      const auth = firebase.auth();
+    </script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/chat.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
 </html>
